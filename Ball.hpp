@@ -1,8 +1,5 @@
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <iostream>
 
-#include "Paddle.h"
+#include "Paddle.hpp"
 
 class Ball
 {
@@ -24,6 +21,7 @@ public:
     float getVX();
     float getY();
     float getVY();
+    float getR();
 };
 
 
@@ -86,5 +84,8 @@ float Ball::getVX(){
 }
 float Ball::getVY(){
     return vY;
+}
+float Ball::getR(){
+    return r;
 }
 
