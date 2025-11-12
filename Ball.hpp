@@ -1,5 +1,6 @@
 
 #include "Paddle.hpp"
+#include "Brick.hpp"
 
 class Ball
 {
@@ -15,6 +16,7 @@ public:
     void bounceY();
     void collideWall(float w, float h);
     bool collidePaddle(Paddle& p);
+    bool collideBrick(Brick& b);
     void draw(sf::RenderTarget& target);
 
     float getX();
@@ -30,7 +32,7 @@ Ball::Ball(float startX, float startY, float vX, float vY, float r):
     shape.setRadius(r);
     shape.setPosition(x,y);
     shape.setOrigin(r,r);
-    shape.setFillColor(sf::Color::Green);
+    shape.setFillColor(sf::Color::Cyan);
 
 }
 
@@ -66,6 +68,33 @@ bool Ball::collidePaddle(Paddle& p){
         move();
     }
     return result;
+}
+bool Ball::collideBrick(Brick& b){
+    bool vert = false;
+    bool horiz = false;
+    bool bounced = false;
+
+    do {
+        vert = (y-r <= b.getPosition().y+b.getSize().y/2
+            &&  y+r >= b.getPosition().y-b.getSize().y/2);
+        horiz = (x+r >= b.getPosition().x-b.getSize().x/2 
+            && x-r <= b.getPosition().x+b.getSize().x/2);
+        if(vert&&horiz){
+            if(!bounced){
+                bounceY();
+                bounceX();
+                bounced = true;
+            }
+            else
+                move();
+        }
+    }
+    while(vert&&horiz);
+    if(!bounced)return false;
+    else if(!vert)   bounceX();
+    else        bounceY();
+
+    return true;
 }
 
 void Ball::draw(sf::RenderTarget& target){

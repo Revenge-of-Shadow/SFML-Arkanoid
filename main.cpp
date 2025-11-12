@@ -1,6 +1,5 @@
 #include "libs.hpp"
 #include "Ball.hpp"
-#include "Brick.hpp"
 
 #define WINDOW_WIDTH    480.f
 #define WINDOW_HEIGHT   640.f
@@ -12,9 +11,9 @@
 #define BOARD_V         2*BALL_V
 #define BLCK_COLS       5.f
 #define BLCK_ROWS       4.f
-#define BLCK_HPS        4.f
+#define BLCK_HPS        4
 #define BLCK_WIDTH      WINDOW_WIDTH/BLCK_COLS
-#define BLCK_HEIGHT     WINDOW_HEIGHT/10/BLCK_ROWS
+#define BLCK_HEIGHT     WINDOW_HEIGHT/8/BLCK_ROWS
 #define BLOCKS_HEIGHT   WINDOW_HEIGHT/4
 
 
@@ -35,14 +34,12 @@ int main(){
                 ),
                 BLCK_HPS
             ));
-    for(auto b: bricks)
-            b.setOrigin(BLCK_WIDTH/2, BLCK_HEIGHT/2);
 
 
 
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "ARCANOID",
                             sf::Style::Close || sf::Style::Titlebar);
-    window.setVerticalSyncEnabled(true);
+    // window.setVerticalSyncEnabled(true);
 
     while(window.isOpen()){
         //  Standard 2.6 window closed check.
@@ -61,9 +58,15 @@ int main(){
             paddle.moveRight();
         //  Check for pressed keys end.
         //  Logical checks.
+        if(!bricks.size())  break;
         paddle.clampToBounds(WINDOW_WIDTH);
         ball.collidePaddle(paddle);
         ball.collideWall(WINDOW_WIDTH, WINDOW_HEIGHT);
+        for(Brick& b : bricks){
+            if(ball.collideBrick(b))   b.processHit();
+            if(b.isDead())
+                bricks.erase(find(bricks.begin(), bricks.end(), b));
+        }
         //  Logical checks end.
         //  Game actions.
         ball.move();
@@ -74,10 +77,10 @@ int main(){
             // paddle.moveLeft();
 
         window.clear();
-        paddle.draw(window);
-        ball.draw(window);
         for(auto b : bricks)
             b.draw(window);
+        ball.draw(window);
+        paddle.draw(window);
         //  Game actions.
         window.display();
     }
