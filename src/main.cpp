@@ -1,5 +1,7 @@
 #include "libs.hpp"
+#include "Paddle.hpp"
 #include "Ball.hpp"
+#include "Brick.hpp"
 
 #define WINDOW_WIDTH    480.f
 #define WINDOW_HEIGHT   640.f
