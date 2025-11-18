@@ -1,4 +1,5 @@
 #include "Ball.hpp"
+Ball::Ball(){}
 Ball::Ball(float startX, float startY, float vX, float vY, float r):
     x(startX), y(startY), vX(vX), vY(vY), r(r){
     shape.setRadius(r);
