@@ -48,8 +48,6 @@ void Game::render(sf::RenderTarget& target){
     m_ball.draw(target);
     m_paddle.draw(target);
 }
-void Game::setState(State state) { this->state = state; }
-State Game::getState() { return state; }
 int Game::bricksLeft(){ return m_bricks.size(); }
 void Game::movePaddleLeft(){ m_paddle.moveLeft(); }
 void Game::movePaddleRight(){ m_paddle.moveRight(); }

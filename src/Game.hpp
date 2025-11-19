@@ -11,14 +11,12 @@
 #define BLCK_COLS       5.f
 #define BLCK_ROWS       4.f
 #define BLCK_HPS        4
-enum class State{ Menu, Playing, Paused, Won, Lost };
 
 class Game{
     sf::Clock m_deltaClock;
     Paddle m_paddle;
     Ball m_ball;
     std::vector<Brick> m_bricks;
-    State state;
     int framerate;
 
 public:
@@ -34,9 +32,6 @@ public:
 
     void update(sf::Vector2f windowSize);
     void render(sf::RenderTarget& target);
-
-    void setState(State state);
-    State getState();
 
     int bricksLeft();   //  This used to look so good in an unseparated class!
     void movePaddleLeft();
