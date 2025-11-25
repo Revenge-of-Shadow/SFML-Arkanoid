@@ -1,4 +1,6 @@
 #include "Game.hpp"
+#include "GameState.hpp"
+#include <algorithm>
 
 Game::Game(
         sf::VideoMode windowSize,
@@ -28,6 +30,7 @@ Game::Game(
                 ),
                 blockHPs
     ));
+    
 }
 
 void Game::update(sf::Vector2f windowSize){
@@ -51,3 +54,15 @@ void Game::render(sf::RenderTarget& target){
 int Game::bricksLeft(){ return m_bricks.size(); }
 void Game::movePaddleLeft(){ m_paddle.moveLeft(); }
 void Game::movePaddleRight(){ m_paddle.moveRight(); }
+
+bool Game::saveToFile(std::string filename) {
+    gstate.capture(m_paddle, m_ball, m_bricks);
+    return gstate.saveToFile(filename);
+}
+bool Game::loadFromFile(std::string filename) {
+    if(gstate.loadFromFile(filename)){
+        gstate.apply(m_paddle, m_ball, m_bricks);
+        return true;
+    }
+    return false;
+}

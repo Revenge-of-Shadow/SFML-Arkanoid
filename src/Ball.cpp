@@ -90,3 +90,20 @@ float Ball::getVY(){
 float Ball::getR(){
     return r;
 }
+
+Ball* Ball::operator*(){ return this; }
+Ball& Ball::operator=(const Ball& other){
+    if(this != &other){
+        this->x = other.x; 
+        this->y = other.y; 
+        this->vX = other.vX;
+        this->vY = other.vY;
+        this->r = other.r;
+
+        shape.setRadius(r);
+        shape.setPosition(x,y);
+        shape.setOrigin(r,r);
+        shape.setFillColor(sf::Color::Cyan);
+    }
+    return *this;
+}

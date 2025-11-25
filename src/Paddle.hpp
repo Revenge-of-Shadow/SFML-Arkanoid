@@ -3,11 +3,13 @@
 #include "libs.hpp"
 
 class Paddle{
-    float x, y, width, height, vx;
     sf::RectangleShape shape;
 
 
 public:
+    float  width, height, vx;
+    float x, y;
+    Paddle();
     Paddle(float width, float height, float x, float y, float vx);
 
     void moveLeft();
@@ -18,8 +20,13 @@ public:
     void draw(sf::RenderTarget& target);
 
     float getX();
+    void setX(float);
     float getY();
+    void setY(float);
     float getWidth();
     float getHeight();
+
+    Paddle* operator*();
+    Paddle& operator=(const Paddle& other);
 };
 #endif

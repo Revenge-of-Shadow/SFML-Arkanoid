@@ -1,5 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
+#include "GameState.hpp"
 #include "libs.hpp"
 #include "Ball.hpp"
 #include "Paddle.hpp"
@@ -19,6 +20,8 @@ class Game{
     std::vector<Brick> m_bricks;
     int framerate;
 
+    GameState gstate;
+
 public:
     Game(
         sf::VideoMode windowSize,
@@ -36,6 +39,9 @@ public:
     int bricksLeft();   //  This used to look so good in an unseparated class!
     void movePaddleLeft();
     void movePaddleRight();
+
+    bool saveToFile(std::string);
+    bool loadFromFile(std::string);
 };
 #endif
 

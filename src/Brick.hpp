@@ -15,6 +15,8 @@ public:
 
     void draw(sf::RenderTarget& target) const;
 
+    int getHP()const;
+    int getMaxHP()const;
     bool isDead();
 
     bool operator==(const Brick& b);

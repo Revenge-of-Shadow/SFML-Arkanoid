@@ -32,6 +32,14 @@ void Brick::draw(sf::RenderTarget& target) const{
     target.draw(*this);
 }
 
+int Brick::getHP() const{
+    return healthPoints;
+}
+
+int Brick::getMaxHP() const{
+    return maxHealthPoints;
+}
+
 bool Brick::isDead(){
     return  !healthPoints;
 }

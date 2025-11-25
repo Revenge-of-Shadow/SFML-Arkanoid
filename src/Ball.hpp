@@ -6,10 +6,10 @@
 class Ball
 {
 private:
-    float x, y, vX, vY, r;
     sf::CircleShape shape;
 
 public:
+    float x, y, vX, vY, r;
     Ball();
     Ball(float startX, float startY, float vX, float vY, float r);
     void move();
@@ -25,5 +25,8 @@ public:
     float getY();
     float getVY();
     float getR();
+
+    Ball* operator*();
+    Ball& operator=(const Ball& other);
 };
 #endif

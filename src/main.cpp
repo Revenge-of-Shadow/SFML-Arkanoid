@@ -1,10 +1,11 @@
 #include "Game.hpp"
 #include "Menu.hpp"
-#include <SFML/Window/Keyboard.hpp>
+#include <sched.h>
 
 #define WINDOW_WIDTH    480.f
 #define WINDOW_HEIGHT   640.f
 #define FRAMERATE       50
+#define SAVEFILE "save.txt"
 enum class State{ Menu, Playing, Paused, Won, Lost };
 
 int main(){
@@ -14,11 +15,15 @@ int main(){
     State state = State::Menu;
     Menu menu("./orbitron-latin-800-normal.ttf", 24);
 
+    game.loadFromFile(SAVEFILE);
+
     while(m_window.isOpen()){
         sf::Event event;
         while(m_window.pollEvent(event)){
-            if(event.type == sf::Event::Closed)
+            if(event.type == sf::Event::Closed){
+                game.saveToFile(SAVEFILE);
                 m_window.close();
+            }
         }
         sf::sleep(sf::milliseconds(1000/FRAMERATE));
         m_window.clear();
